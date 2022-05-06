@@ -1,0 +1,73 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/jacksonjong/Develop/GitHub/MicroBusiness/MicroBusiness.csproj": {}
+  },
+  "projects": {
+    "/Users/jacksonjong/Develop/GitHub/MicroBusiness/MicroBusiness.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/jacksonjong/Develop/GitHub/MicroBusiness/MicroBusiness.csproj",
+        "projectName": "MicroBusiness",
+        "projectPath": "/Users/jacksonjong/Develop/GitHub/MicroBusiness/MicroBusiness.csproj",
+        "packagesPath": "/Users/jacksonjong/.nuget/packages/",
+        "outputPath": "/Users/jacksonjong/Develop/GitHub/MicroBusiness/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/jacksonjong/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
