@@ -14,7 +14,7 @@ public class OrderController : Controller{
     
     
     // static IList<Customer> customerList = new List<Customer>();
-    public IActionResult Index(string searchString){
+    public IActionResult Index(string sortOrder,string searchString){
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
 
@@ -22,11 +22,22 @@ public class OrderController : Controller{
 
             var customer = connection.Query<Customer>(commandSQL);
 
+            // if(sortOrder.Contains("desc")){
+            //     commandSQL = "Select * from Customer order by @item desc;";
+
+            //     customer = connection.Execute(commandSQL, new{})
+            // } else {
+            //     commandSQL = "Select * from Customer order by @item;";
+
+
+            // }
+
+
             if(!String.IsNullOrEmpty(searchString)){
                 customer = customer.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString));    
             }
             connection.Close();
-            
+
             return View(customer.ToList());
         }
     }
