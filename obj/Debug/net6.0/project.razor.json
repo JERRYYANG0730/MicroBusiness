@@ -16303,6 +16303,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/jacksonjong/Develop/GitHub/MicroBusiness/Views/Order/Customer.cshtml",
+      "TargetPath": "Views\\Order\\Customer.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/jacksonjong/Develop/GitHub/MicroBusiness/Views/Shared/_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"

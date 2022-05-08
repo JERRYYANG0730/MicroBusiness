@@ -1,5 +1,7 @@
 namespace MicroBusiness.Models;
 
+
+
 public class Customer{
     public int Id {get;set;}
 
@@ -69,4 +71,8 @@ public class Supplier{
     public string? Phone{get;set;}
 
     public string? Fax{get;set;}
+}
+
+public class BusinessViewModel{
+    public IEnumerable<Customer> customerModel{get;set;}
 }

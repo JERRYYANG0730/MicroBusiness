@@ -1,5 +1,4 @@
-@model IEnumerable<MicroBusiness.Models.Customer> 
-
+@model MicroBusiness.Models.Customer
 
 @{
     ViewBag.Title = "Index";
@@ -10,52 +9,19 @@
 <form asp-action = "Index" method="get">
     <div class = "form-actions no-color">
         <P>
-            Find by Name: <input type ="text" name="SearchString" value="@ViewData["currentFilter"]"/>
+            <select class = "form-control" id="orderList" name="orderList">
+                <option>Select data</option>
+                <option value = "Customer">Customer</option>
+                <option value = "Order">Order</option>
+                <option value = "OrderItem">OrderItem</option>
+                <option value = "Product">Product</option>
+                <option value = "Supplier">Supplier</option>
+            </select>
             
             
-            <input type = "Submit" value = "Search" class = "btn btn-default"/> |
+            <input type = "Submit" value = "SUBMIT" class = "btn btn-default"/> |
             <a asp-action ="Index">Back to Full List</a>
         </P>
     </div>
 </form>
 
-<table class = "table table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName) <a asp-action = "Index" asp-route-sortOrder = "@ViewData["FirstNameSortParm"]">&#8645</a> 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName) 
-        <th>
-            @Html.DisplayNameFor(model => model.City) 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country) 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-        </tr>
-        
-    }
-</table>
