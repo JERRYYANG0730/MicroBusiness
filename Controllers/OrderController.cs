@@ -14,33 +14,35 @@ public class OrderController : Controller{
     
     
     // static IList<Customer> customerList = new List<Customer>();
-    public IActionResult Index(string sortOrder,string searchString){
+    public IActionResult Index(string searchString,string sortOrder){
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
 
             string commandSQL = "Select * from Customer";
 
-            var customer = connection.Query<Customer>(commandSQL);
-
-            // if(sortOrder.Contains("desc")){
-            //     commandSQL = "Select * from Customer order by @item desc;";
-
-            //     customer = connection.Execute(commandSQL, new{})
-            // } else {
-            //     commandSQL = "Select * from Customer order by @item;";
-
-
-            // }
-
+             var customer = connection.Query<Customer>(commandSQL);
+            
+            ViewData["FirstNameSortParm"] = sortOrder == "first_name" ? "first_name_desc" : "first_name";
 
             if(!String.IsNullOrEmpty(searchString)){
                 customer = customer.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString));    
             }
+
+            switch (sortOrder){
+                case "first_name_desc":
+                    customer = customer.OrderByDescending(c => c.FirstName);
+                    break;
+                case "first_name":
+                    customer = customer.OrderBy(c => c.FirstName);
+                    break;
+            }
+
             connection.Close();
 
             return View(customer.ToList());
         }
     }
+    
 
 
 }

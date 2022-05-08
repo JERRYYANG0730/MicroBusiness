@@ -22,19 +22,18 @@
 <table class = "table table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName) (&#8593;)
+            @Html.DisplayNameFor(model => model.FirstName) <a asp-action = "Index" asp-route-sortOrder = "@ViewData["FirstNameSortParm"]">&#8645</a> 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName) (&#8593;)
+            @Html.DisplayNameFor(model => model.LastName) 
+        <th>
+            @Html.DisplayNameFor(model => model.City) 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City) (&#8593;)
+            @Html.DisplayNameFor(model => model.Country) 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Country) (&#8593;)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone) (&#8593;)
+            @Html.DisplayNameFor(model => model.Phone)
         </th>
     </tr>
 
