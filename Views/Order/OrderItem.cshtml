@@ -1,8 +1,8 @@
-@model IEnumerable<MicroBusiness.Models.Customer>
+@model IEnumerable<MicroBusiness.Models.OrderItem>
 
 
 @{
-    ViewBag.Title = "Customer";
+    ViewBag.Title = "OrderItem";
 }
 
 <h1>Database</h1>
@@ -21,19 +21,19 @@
             
             
             <input type = "Submit" value = "SUBMIT" class = "btn btn-default"/> |
-            <a asp-action ="Customer">Back to Full List</a>
+            <a asp-action ="OrderItem">Back to Full List</a>
         </P>
     </div>
 </form>
 
-<form asp-action = "Customer" method="get">
+<form asp-action = "OrderItem" method="get">
     <div class = "form-actions no-color">
         <P>
             Find by Name: <input type ="text" name="SearchString" value="@ViewData["currentFilter"]"/>
             
             
             <input type = "Submit" value = "Search" class = "btn btn-default"/> |
-            <a asp-action ="Customer">Back to Full List</a>
+            <a asp-action ="OrderItem">Back to Full List</a>
         </P>
     </div>
 </form>
@@ -41,18 +41,15 @@
 <table class = "table table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName) <a asp-action = "Customer" asp-route-sortOrder = "@ViewData["FirstNameSortParm"]">&#8645</a> 
+            @Html.DisplayNameFor(model => model.OrderId) <a asp-action = "OrdrerItem" asp-route-sortOrder = "@ViewData["FirstNameSortParm"]">&#8645</a> 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName) 
+            @Html.DisplayNameFor(model => model.ProductId) 
         <th>
-            @Html.DisplayNameFor(model => model.City) 
+            @Html.DisplayNameFor(model => model.UnitPrice) 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Country) 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            @Html.DisplayNameFor(model => model.Quantity) 
         </th>
     </tr>
 
@@ -60,19 +57,16 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.OrderId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.ProductId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City)
+                @Html.DisplayFor(modelItem => item.UnitPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+                @Html.DisplayFor(modelItem => item.Quantity)
             </td>
         </tr>
         

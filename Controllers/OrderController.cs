@@ -11,20 +11,31 @@ public class OrderController : Controller{
 
     private readonly string connectionString = "Server=localhost;Database=OrderDB;User ID=sa;Password=Pa$$w0rd;";
     
-    // static IList<Customer> customerList = new List<Customer>();
+    static IList<Customer> customerList = new List<Customer>();
     public IActionResult Index(string orderList){
         using(var connection = new SqlConnection(connectionString)){
+            connection.Open();
+            string commandSQL = "Select * from Customer";
+
+            var customer = connection.Query<Customer>(commandSQL);
+
+            if(orderList == "OrderItem"){
+                return RedirectToAction("OrderItem");
+            } else if (orderList == "Customer"){
+                return RedirectToAction("Customer");
+            }
+
+            connection.Close();
+
+            return View(customer.ToList());
+
             
         }
         
-        if(orderList == "Customer"){
-            return View("Customer");
-        } else {
-            return View("Index");
-        }
+        
     }
 
-    public IActionResult Customer(string searchString,string sortOrder){
+    public ActionResult Customer(string searchString,string sortOrder){
         Console.WriteLine("go in customer");
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
@@ -52,6 +63,21 @@ public class OrderController : Controller{
 
             
             return View(customer.ToList());
+        }
+    }
+
+
+    public ActionResult OrderItem(){
+        using(var connection = new SqlConnection(connectionString)){
+            connection.Open();
+            string commandSQL = "Select * from OrderItem";
+
+            var orderItem =  connection.Query<OrderItem>(commandSQL);
+
+            connection.Close();
+
+            return View(orderItem.ToList());
+
         }
     }
     

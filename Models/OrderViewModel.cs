@@ -72,7 +72,3 @@ public class Supplier{
 
     public string? Fax{get;set;}
 }
-
-public class BusinessViewModel{
-    public IEnumerable<Customer> customerModel{get;set;}
-}

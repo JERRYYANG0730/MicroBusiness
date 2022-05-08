@@ -16341,6 +16341,11 @@
       "FilePath": "/Users/jacksonjong/Develop/GitHub/MicroBusiness/Views/Order/Index.cshtml",
       "TargetPath": "Views\\Order\\Index.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/jacksonjong/Develop/GitHub/MicroBusiness/Views/Order/OrderItem.cshtml",
+      "TargetPath": "Views\\Order\\OrderItem.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"
