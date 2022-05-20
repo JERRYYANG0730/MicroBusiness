@@ -23,11 +23,7 @@ public class OrderController : Controller{
 
             connection.Close();
 
-            if (!string.IsNullOrEmpty(dbItem)){
-                return RedirectToAction(dbItem);
-            } else {
-                return View("Customer");
-            }
+            return RedirectToAction(dbItem);
             
         }
     }
@@ -50,7 +46,7 @@ public class OrderController : Controller{
         }
     }
 
-    public ActionResult Customer(string searchString,string sortOrder){
+    public ActionResult Customer(string searchString,string sortOrder, string orderList){
        
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
@@ -58,6 +54,8 @@ public class OrderController : Controller{
             dbItem = "Customer";
             
             string commandSQL = $@"Select * from {dbItem}";
+
+            dbItem = checkOrderList(orderList);
 
             var customer = connection.Query<Customer>(commandSQL);
             
@@ -78,8 +76,8 @@ public class OrderController : Controller{
 
             connection.Close();
 
-            
-            return View(customer.ToList());
+            return RedirectToAction(dbItem); 
+           
         }
     }
 
@@ -87,15 +85,23 @@ public class OrderController : Controller{
     public ActionResult OrderItem(){
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
-            Console.WriteLine(dbItem);
+            dbItem = "OrderItem";
 
             string commandSQL = $@"Select * from {dbItem}";
+
+            dbItem = "";
 
             var orderItem =  connection.Query<OrderItem>(commandSQL);
 
             connection.Close();
 
             return View(orderItem.ToList());
+
+            // if (!string.IsNullOrEmpty(dbItem)){
+            //     return RedirectToAction(dbItem);
+            // } else {
+            //     return View(orderItem.ToList());
+            // }     
 
         }
     }
