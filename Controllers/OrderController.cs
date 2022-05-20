@@ -13,18 +13,13 @@ public class OrderController : Controller{
     
     string dbItem = "";
     public IActionResult Index(string orderList){
-        using(var connection = new SqlConnection(connectionString)){
+        
+        dbItem = checkOrderList(orderList);
 
-            connection.Open();
-
-            orderList = "Customer";
-
-            dbItem = checkOrderList(orderList);
-
-            connection.Close();
-
+        if(!string.IsNullOrEmpty(dbItem)){
             return RedirectToAction(dbItem);
-            
+        } else {
+            return RedirectToAction("Customer");
         }
     }
 
@@ -46,16 +41,12 @@ public class OrderController : Controller{
         }
     }
 
-    public ActionResult Customer(string searchString,string sortOrder, string orderList){
+    public ActionResult Customer(string searchString,string sortOrder){
        
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
-
-            dbItem = "Customer";
             
-            string commandSQL = $@"Select * from {dbItem}";
-
-            dbItem = checkOrderList(orderList);
+            string commandSQL = "Select * from Customer";
 
             var customer = connection.Query<Customer>(commandSQL);
             
@@ -76,7 +67,7 @@ public class OrderController : Controller{
 
             connection.Close();
 
-            return RedirectToAction(dbItem); 
+            return View(customer.ToList());
            
         }
     }
@@ -85,23 +76,14 @@ public class OrderController : Controller{
     public ActionResult OrderItem(){
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
-            dbItem = "OrderItem";
 
-            string commandSQL = $@"Select * from {dbItem}";
-
-            dbItem = "";
+            string commandSQL = "Select * from OrderItem";
 
             var orderItem =  connection.Query<OrderItem>(commandSQL);
 
             connection.Close();
 
-            return View(orderItem.ToList());
-
-            // if (!string.IsNullOrEmpty(dbItem)){
-            //     return RedirectToAction(dbItem);
-            // } else {
-            //     return View(orderItem.ToList());
-            // }     
+            return View(orderItem.ToList());   
 
         }
     }
