@@ -11,36 +11,53 @@ public class OrderController : Controller{
 
     private readonly string connectionString = "Server=localhost;Database=OrderDB;User ID=sa;Password=Pa$$w0rd;";
     
-    static IList<Customer> customerList = new List<Customer>();
+    string dbItem = "";
     public IActionResult Index(string orderList){
         using(var connection = new SqlConnection(connectionString)){
+
             connection.Open();
-            string commandSQL = "Select * from Customer";
 
-            var customer = connection.Query<Customer>(commandSQL);
+            orderList = "Customer";
 
-            if(orderList == "OrderItem"){
-                return RedirectToAction("OrderItem");
-            } else if (orderList == "Customer"){
-                return RedirectToAction("Customer");
-            }
+            dbItem = checkOrderList(orderList);
 
             connection.Close();
 
-            return View(customer.ToList());
-
+            if (!string.IsNullOrEmpty(dbItem)){
+                return RedirectToAction(dbItem);
+            } else {
+                return View("Customer");
+            }
             
         }
+    }
+
+    public string checkOrderList(string orderList){
         
-        
+
+        if(orderList == "Customer"){
+            return "Customer";
+        } else if (orderList == "Order"){
+            return "Order";
+        } else if (orderList == "OrderItem"){
+            return "OrderItem";
+        } else if (orderList == "Product"){
+            return "Product";
+        } else if (orderList == "Supplier"){
+            return "Supplier";
+        } else {
+            return "";
+        }
     }
 
     public ActionResult Customer(string searchString,string sortOrder){
-        Console.WriteLine("go in customer");
+       
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
-            Console.WriteLine("SQL function");
-            string commandSQL = "Select * from Customer";
+
+            dbItem = "Customer";
+            
+            string commandSQL = $@"Select * from {dbItem}";
 
             var customer = connection.Query<Customer>(commandSQL);
             
@@ -70,7 +87,9 @@ public class OrderController : Controller{
     public ActionResult OrderItem(){
         using(var connection = new SqlConnection(connectionString)){
             connection.Open();
-            string commandSQL = "Select * from OrderItem";
+            Console.WriteLine(dbItem);
+
+            string commandSQL = $@"Select * from {dbItem}";
 
             var orderItem =  connection.Query<OrderItem>(commandSQL);
 
