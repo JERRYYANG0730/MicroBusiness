@@ -1,7 +1,8 @@
 @model IEnumerable<MicroBusiness.Models.Customer>
 
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Customer";
 }
 
 <h1>Database</h1>
@@ -20,7 +21,19 @@
             
             
             <input type = "Submit" value = "SUBMIT" class = "btn btn-default"/> |
-            <a asp-action ="Index">Back to Full List</a>
+            <a asp-action ="Customer">Back to Full List</a>
+        </P>
+    </div>
+</form>
+
+<form asp-action = "Customer" method="get">
+    <div class = "form-actions no-color">
+        <P>
+            Find by Name: <input type ="text" name="SearchString" value="@ViewData["currentFilter"]"/>
+            
+            
+            <input type = "Submit" value = "Search" class = "btn btn-default"/> |
+            <a asp-action ="Customer">Back to Full List</a>
         </P>
     </div>
 </form>
