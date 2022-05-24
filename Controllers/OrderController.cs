@@ -11,8 +11,9 @@ public class OrderController : Controller{
 
     private readonly string connectionString = "Server=localhost;Database=OrderDB;User ID=sa;Password=Pa$$w0rd;";
     
-    string dbItem = "";
     public IActionResult Index(string orderList){
+        
+        string dbItem = "";
         
         dbItem = checkOrderList(orderList);
 
@@ -23,7 +24,48 @@ public class OrderController : Controller{
         }
     }
 
-    public string checkOrderList(string orderList){
+    public ActionResult Customer(string searchString,string sortOrder){
+       
+        using(var connection = new SqlConnection(connectionString)){
+            connection.Open();
+            
+            string commandSQL = "Select * from Customer";
+
+            var customer = connection.Query<Customer>(commandSQL);
+
+            ViewData["FirstNameSortParm"] = sortOrder == "first_name" ? "first_name_desc" : "first_name";
+
+            if(!string.IsNullOrEmpty(searchString)){
+                commandSQL = searchItem(searchString);
+                customer = connection.Query<Customer>(commandSQL,new {searchName = searchString});
+            }
+
+            if(!string.IsNullOrEmpty(sortOrder)){
+                commandSQL = sortItem(sortOrder);
+                customer = connection.Query<Customer>(commandSQL);
+            }
+
+            connection.Close();
+
+            return View(customer.ToList());
+        }
+    }
+
+    public ActionResult OrderItem(){
+        using(var connection = new SqlConnection(connectionString)){
+            connection.Open();
+
+            string commandSQL = "Select * from OrderItem";
+
+            var orderItem =  connection.Query<OrderItem>(commandSQL);
+
+            connection.Close();
+
+            return View(orderItem.ToList());   
+        }
+    }
+
+    private string checkOrderList(string orderList){
         
 
         if(orderList == "Customer"){
@@ -41,53 +83,25 @@ public class OrderController : Controller{
         }
     }
 
-    public ActionResult Customer(string searchString,string sortOrder){
-       
-        using(var connection = new SqlConnection(connectionString)){
-            connection.Open();
-            
-            string commandSQL = "Select * from Customer";
+    private string sortItem(string sortOrder){
 
-            var customer = connection.Query<Customer>(commandSQL);
-            
-            ViewData["FirstNameSortParm"] = sortOrder == "first_name" ? "first_name_desc" : "first_name";
-
-            if(!String.IsNullOrEmpty(searchString)){
-                customer = customer.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString));    
-            }
-
-            switch (sortOrder){
-                case "first_name_desc":
-                    customer = customer.OrderByDescending(c => c.FirstName);
-                    break;
-                case "first_name":
-                    customer = customer.OrderBy(c => c.FirstName);
-                    break;
-            }
-
-            connection.Close();
-
-            return View(customer.ToList());
-           
+        switch(sortOrder){
+            case "first_name_desc":
+                return "select * from Customer order by FirstName ASC";
+            case "first_name":
+                return "select * from Customer order by FirstName DESC";
         }
+        return "";
     }
 
+    private string searchItem(String searchString){
+        
+        string sqlCommand = "";
+        
+        Console.WriteLine(searchString);
 
-    public ActionResult OrderItem(){
-        using(var connection = new SqlConnection(connectionString)){
-            connection.Open();
+        sqlCommand = "SELECT * from Customer where FirstName LIKE @searchName OR LastName LIKE @searchName";
 
-            string commandSQL = "Select * from OrderItem";
-
-            var orderItem =  connection.Query<OrderItem>(commandSQL);
-
-            connection.Close();
-
-            return View(orderItem.ToList());   
-
-        }
+        return sqlCommand;
     }
-    
-
-
 }
